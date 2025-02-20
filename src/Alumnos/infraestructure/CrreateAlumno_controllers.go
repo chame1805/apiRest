@@ -10,15 +10,17 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
-
+//hace referencia al use case para poder crear como tal el alumno
 type CreateAlumnoController struct {
 	useCase *applications.CreateAlumnoUseCase
 }
 
+//un contructor que recibe el use case
 func NewCreateAlumnoController(useCase *applications.CreateAlumnoUseCase) *CreateAlumnoController {
 	return &CreateAlumnoController{useCase: useCase}
 }
 
+//manda los datos al json
 func (cp *CreateAlumnoController) Execute(c *gin.Context) {
 	var alumno struct {
 		Nombre   string `json:"nombre"`
