@@ -1,7 +1,6 @@
 package infraestructure
 
 import (
-	//"demo/src/Alumnos/application"
 
 	"practica/src/Alumnos/applications"
 
