@@ -2,12 +2,15 @@ package main
 
 import (
 	"log"
-	"github.com/joho/godotenv"
+
 	"github.com/gin-gonic/gin"
-	"github.com/gin-contrib/cors" // Importar middleware de CORS
+	"github.com/joho/godotenv"
+
 	alumnos "practica/src/Alumnos/infraestructure"
 	materias "practica/src/Materias/infraestructure"
 	"time"
+
+	"github.com/gin-contrib/cors" // Importar middleware de CORS
 )
 
 func main() {
