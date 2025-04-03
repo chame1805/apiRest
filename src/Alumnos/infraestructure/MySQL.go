@@ -21,13 +21,13 @@ func NewMySQLAlumnos() *MySQLAlumnos {
 }
 
 // Implementación de Save con error
-func (mysql *MySQLAlumnos) Save(nombre string, telefono string) error {
-	query := "INSERT INTO alumnos (nombre, telefono) VALUES (?, ?)"
+func (mysql *MySQLAlumnos) Save(nombre string, telefono string,password string) error {
+	query := "INSERT INTO alumnos (nombre, telefono,password) VALUES (?, ?,?)"
 
 	// Agregar logs para depuración
-	log.Printf("Ejecutando consulta: %s, con valores: nombre=%s, telefono=%s", query, nombre, telefono)
+	log.Printf("Ejecutando consulta: %s, con valores: nombre=%s, telefono=%s password=%s", query, nombre, telefono,password)
 
-	result, err := mysql.conn.ExecutePreparedQuery(query, nombre, telefono)
+	result, err := mysql.conn.ExecutePreparedQuery(query, nombre, telefono,password)
 	if err != nil {
 		log.Printf("Error al guardar el alumno: %v", err)
 		return err

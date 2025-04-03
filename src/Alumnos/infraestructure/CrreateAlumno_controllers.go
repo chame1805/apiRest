@@ -19,12 +19,11 @@ type CreateAlumnoController struct {
 func NewCreateAlumnoController(useCase *applications.CreateAlumnoUseCase) *CreateAlumnoController {
 	return &CreateAlumnoController{useCase: useCase}
 }
-
-//manda los datos al json
 func (cp *CreateAlumnoController) Execute(c *gin.Context) {
 	var alumno struct {
 		Nombre   string `json:"nombre"`
 		Telefono string `json:"telefono"`
+		Password string `json:"password"`
 	}
 
 	if err := c.BindJSON(&alumno); err != nil {
@@ -36,7 +35,13 @@ func (cp *CreateAlumnoController) Execute(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Telefono must be a number"})
 		return
 	}
-	cp.useCase.Execute(alumno.Nombre, alumno.Telefono)
+
+	// Ejecutar el caso de uso con la contraseña encriptada
+	err := cp.useCase.Execute(alumno.Nombre, alumno.Telefono, alumno.Password)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Alumno creado exitosamente"})
 }
